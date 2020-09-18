@@ -78,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
 
 	update() {
 		if (this.player.y > config.height) {
+			saveScore(score);
 			this.scene.start('ScoreBoard');
 		}
 
@@ -126,4 +127,20 @@ export default class GameScene extends Phaser.Scene {
 function updateScore() {
 	score += 10;
 	scoreText.setText('Score:' + score);
+}
+
+function saveScore(score) {
+	const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+	let data = {
+		user: 'safa',
+		score: score
+	};
+	fetch(url, {
+		mode: 'cors',
+		method: 'POST',
+		body: JSON.stringify(data),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
 }
