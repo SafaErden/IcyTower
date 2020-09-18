@@ -2,17 +2,17 @@ import 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
 
-const CreateLoginDialog = (scene, config) => {
-	const COLOR_PRIMARY = 0x305556;
-	const COLOR_LIGHT = 0x40798e;
-	const COLOR_DARK = 0x89bac7;
+const COLOR_PRIMARY = 0x305556;
+const COLOR_LIGHT = 0x40798e;
 
-	let username = 'safa';
-	const title = 'titlesss';
-	const x = 0;
-	const y = 0;
-	const width = 300;
-	const height = 150;
+const { GetValue } = Phaser.Utils.Objects;
+const CreateLoginDialog = (scene, config) => {
+	let username = GetValue(config, 'username', '');
+	const title = GetValue(config, 'title');
+	const x = GetValue(config, 'x', 0);
+	const y = GetValue(config, 'y', 0);
+	const width = GetValue(config, 'width', undefined);
+	const height = GetValue(config, 'height', undefined);
 
 	const background = scene.rexUI.add.roundRectangle(0, 0, 10, 10, 10, COLOR_PRIMARY);
 	const titleField = scene.add.text(0, 0, title);
@@ -21,7 +21,7 @@ const CreateLoginDialog = (scene, config) => {
 			orientation: 'x',
 			background: scene.rexUI.add.roundRectangle(0, 0, 10, 10, 10).setStrokeStyle(2, COLOR_LIGHT),
 			text: scene.rexUI.add.BBCodeText(0, 0, username, { fixedWidth: 150, fixedHeight: 36, valign: 'center' }),
-			space: { left: 50, bottom: 50, top: -30 }
+			space: { left: 10, bottom: 0, top: 0 }
 		})
 		.setInteractive()
 		.on('pointerdown', () => {
@@ -38,7 +38,7 @@ const CreateLoginDialog = (scene, config) => {
 		.label({
 			orientation: 'x',
 			background: scene.rexUI.add.roundRectangle(0, 0, 10, 10, 10, COLOR_LIGHT),
-			text: scene.add.text(0, 0, 'SUBMIT'),
+			text: scene.add.text(0, 0, 'PLAY'),
 			space: {
 				top: 8,
 				bottom: 8,
@@ -142,17 +142,16 @@ export default class TitleScene extends Phaser.Scene {
 		}
 		CreateLoginDialog(this, {
 			x: config.width / 2,
-			y: 300,
-			title: 'Welcome, kindly enter your username',
+			y: 200,
+			title: 'Please enter your username',
 			username: ''
-		})
-			.on('login', function played(username) {
-				if (username.length > 0) {
-					new Userdetails().setUser(username);
-					this.scene.scene.start('Title');
-				}
-			})
-			.popUp(1000);
+		}).on('login', function played(username) {
+			if (username.length > 0) {
+				//new Userdetails().setUser(username);
+				//this.scene.scene.start('Game');
+				console.log(username);
+			}
+		});
 	}
 
 	centerButton(gameObject, offset = 0) {
