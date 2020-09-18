@@ -14,7 +14,7 @@ const updatePanel = (panel, content) => {
 			sizer.add(
 				scene.add
 					.text(0, 0, words[wi], {
-						fontSize: 28
+						fontSize: 30
 					})
 					.setInteractive()
 					.on('pointerdown', () => {
@@ -42,63 +42,62 @@ export default class ScoreScene extends Phaser.Scene {
 	}
 
 	async create() {
-		/*
-    */
-		this.COLOR_PRIMARY = 0x4e342e;
-		this.COLOR_LIGHT = 0x7b5e57;
-		this.COLOR_DARK = 0x260e04;
+		this.creditsButton = new Button(
+			this,
+			config.width / 2,
+			config.height - 50,
+			'blueButton1',
+			'blueButton2',
+			'Menu',
+			'Title'
+		);
 
-		this.text = this.add.text(config.width / 2 - 150, 20, 'GAME OVER!', {
-			fill: '#fff',
+		this.COLOR_PRIMARY = 0x305556;
+		this.COLOR_LIGHT = 0x40798e;
+		this.COLOR_DARK = 0x89bac7;
+
+		this.text = this.add.text(config.width / 2 - 140, 20, 'GAME OVER!', {
+			fill: '#305556',
 			font: '800 50px monospace',
-			stroke: '#fff',
 			strokeThickness: 2
 		});
 
-		const scrollablePanel = this.rexUI.add
+		const scoreBoard = this.rexUI.add
 			.scrollablePanel({
 				x: config.width / 2,
 				y: config.height / 2,
-				width: 350,
-				height: 420,
+				width: 400,
+				height: 600,
 
-				scrollMode: 0,
-
-				background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 10, this.COLOR_PRIMARY),
+				background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 30, this.COLOR_PRIMARY),
 
 				panel: {
 					child: this.rexUI.add.fixWidthSizer({
 						space: {
-							left: 3,
-							right: 3,
-							top: 3,
-							bottom: 3,
-							item: 8,
-							line: 8
+							left: 5,
+							right: 5,
+							top: 5,
+							bottom: 5,
+							item: 5,
+							line: 5
 						}
 					}),
 
 					mask: {
-						padding: 1
+						padding: 2
 					}
 				},
 
-				slider: {
-					track: this.rexUI.add.roundRectangle(0, 0, 20, 10, 10, this.COLOR_DARK),
-					thumb: this.rexUI.add.roundRectangle(0, 0, 0, 0, 13, this.COLOR_LIGHT)
-				},
-
 				space: {
-					left: 10,
-					right: 10,
-					top: 10,
-					bottom: 10,
-
+					left: 20,
+					right: 20,
+					top: 50,
+					bottom: 50,
 					panel: 10
 				}
 			})
 			.layout();
-		updatePanel(scrollablePanel, 'LEADERBOARD \n \n \n Loading.');
+		updatePanel(scoreBoard, 'Loading...');
 
 		this.url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
 		this.data = {
@@ -114,11 +113,11 @@ export default class ScoreScene extends Phaser.Scene {
 			}
 		});
 
-		updatePanel(scrollablePanel, 'LEADERBOARD \n \n \n Loading..');
+		updatePanel(scoreBoard, 'Loading...');
 		let result = await fetch(this.url, {
 			mode: 'cors'
 		});
-		updatePanel(scrollablePanel, 'LEADERBOARD \n \n \n Loading...');
+		updatePanel(scoreBoard, 'Loading...');
 		const data = await result.json();
 		result = data.result;
 		result = result.sort((a, b) => +b.score - +a.score);
@@ -131,25 +130,30 @@ export default class ScoreScene extends Phaser.Scene {
 			}
 		});
 
-		let output = 'LEADERBOARD \n \n Scroll the board to see more scores \n \n';
+		let output = 'TOP 10 \n\n';
 
-		/* eslint-disable */
-
-		var firstN = 15;
-		// var o = { a: 7, b: 8, c: 9 };
 		var filteredResult = {};
 
-		for (var index = 0; index < firstN; index++) {
+		for (var index = 0; index < 10; index++) {
 			var key = Object.keys(answer)[index];
 			filteredResult[key] = answer[key];
 		}
 
-		console.log(filteredResult);
 		for (const el in filteredResult) {
 			output += `${el} - ${filteredResult[el]} \n`;
 		}
-		/* eslint-enable */
 
-		updatePanel(scrollablePanel, output);
+		updatePanel(scoreBoard, output);
+	}
+
+	centerButton(gameObject, offset = 0) {
+		Phaser.Display.Align.In.Center(
+			gameObject,
+			this.add.zone(config.width / 2, config.height / 2 - offset * 100, config.width, config.height)
+		);
+	}
+
+	centerButtonText(gameText, gameButton) {
+		Phaser.Display.Align.In.Center(gameText, gameButton);
 	}
 }

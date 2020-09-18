@@ -78,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
 
 	update() {
 		if (this.player.y > config.height) {
-			this.scene.start('Title');
+			this.scene.start('ScoreBoard');
 		}
 
 		let platform = this.platformGroup.getChildren();
