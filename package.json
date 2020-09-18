@@ -22,5 +22,8 @@
     "webpack": "^3.4.1",
     "raw-loader": "^0.5.1",
     "phaser": "^3.3.0"
+  },
+  "dependencies": {
+    "phaser3-rex-plugins": "^1.1.28"
   }
 }
