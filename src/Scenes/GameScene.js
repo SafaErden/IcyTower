@@ -77,8 +77,10 @@ export default class GameScene extends Phaser.Scene {
 	}
 
 	update() {
+		this.model = this.sys.game.globals.model;
+
 		if (this.player.y > config.height) {
-			saveScore(score);
+			saveScore(score, this.model.userName);
 			this.scene.start('ScoreBoard');
 		}
 
@@ -129,10 +131,10 @@ function updateScore() {
 	scoreText.setText('Score:' + score);
 }
 
-function saveScore(score) {
-	const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+function saveScore(score, user) {
+	const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores/';
 	let data = {
-		user: 'safa',
+		user: user,
 		score: score
 	};
 	fetch(url, {

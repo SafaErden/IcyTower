@@ -99,7 +99,7 @@ export default class ScoreScene extends Phaser.Scene {
 			.layout();
 		updatePanel(scoreBoard, 'Loading...');
 
-		this.url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+		this.url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores/';
 		this.data = {
 			user: localStorage.getItem('name'),
 			score: localStorage.getItem('score')

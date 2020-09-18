@@ -89,17 +89,6 @@ export default class TitleScene extends Phaser.Scene {
 	}
 
 	create() {
-		// Game
-		this.gameButton = new Button(
-			this,
-			config.width / 2,
-			config.height / 2 - 200,
-			'blueButton1',
-			'blueButton2',
-			'Play',
-			'Game'
-		);
-
 		// Options
 		this.optionsButton = new Button(
 			this,
@@ -134,6 +123,7 @@ export default class TitleScene extends Phaser.Scene {
 		);
 
 		this.model = this.sys.game.globals.model;
+		let model = this.model;
 		if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
 			this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
 			this.bgMusic.play();
@@ -147,9 +137,8 @@ export default class TitleScene extends Phaser.Scene {
 			username: ''
 		}).on('login', function played(username) {
 			if (username.length > 0) {
-				//new Userdetails().setUser(username);
-				//this.scene.scene.start('Game');
-				console.log(username);
+				model.userName = username;
+				this.scene.scene.start('Game');
 			}
 		});
 	}
