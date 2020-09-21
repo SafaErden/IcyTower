@@ -1,12 +1,12 @@
-import 'phaser';
+import Phaser from 'phaser';
 import config from '../Config/config';
-import { updateScore, saveScore } from '../modules/score';
+import { updateScore } from '../modules/score';
 
-var cursors;
-var score = 0;
-var scoreText;
+let cursors;
+let score = 0;
+let scoreText;
 
-let gameOptions = {
+const gameOptions = {
 	platformStartSpeed: 75,
 	platformSizeRange: [ 200, 350 ],
 	platformCounter: 0
@@ -28,13 +28,13 @@ export default class GameScene extends Phaser.Scene {
 
 	create() {
 		this.platformGroup = this.add.group({
-			removeCallback: function(platform) {
+			removeCallback(platform) {
 				platform.scene.platformPool.add(platform);
 			}
 		});
 
 		this.platformPool = this.add.group({
-			removeCallback: function(platform) {
+			removeCallback(platform) {
 				platform.scene.platformGroup.add(platform);
 			}
 		});
@@ -68,9 +68,10 @@ export default class GameScene extends Phaser.Scene {
 
 		scoreText = this.add.text(280, 730, 'Score:0', { fontSize: '40px', fill: '#222' });
 	}
+
 	addPlatform(platformWidth, posX) {
 		let platform;
-		platform = this.physics.add.sprite(posX, config.height * 0, 'platform');
+		platform = this.physics.add.sprite(posX, config.height * 0, 'platform'); // eslint-disable-line
 		platform.setImmovable(true);
 		platform.setVelocityY(score / 2 + 50);
 		this.platformGroup.add(platform);
@@ -84,11 +85,11 @@ export default class GameScene extends Phaser.Scene {
 		if (this.player.y > config.height) {
 			gameOptions.platformCounter = 0;
 			score = 0;
-			let url =
+			const url =
 				'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
-			let data = {
+			const data = {
 				user: this.model.userName,
-				score: score
+				score
 			};
 			fetch(url, {
 				mode: 'cors',
@@ -102,11 +103,11 @@ export default class GameScene extends Phaser.Scene {
 			this.scene.start('ScoreBoard');
 		}
 
-		let platform = this.platformGroup.getChildren();
-		let canvasWidth = 500;
-		for (let i = gameOptions.platformCounter; i < platform.length; i++) {
+		const platform = this.platformGroup.getChildren();
+		const canvasWidth = 500;
+		for (let i = gameOptions.platformCounter; i < platform.length; i += 1) {
 			if (platform[i].y > 150) {
-				var nextPlatformWidth = Phaser.Math.Between(
+				const nextPlatformWidth = Phaser.Math.Between(
 					gameOptions.platformSizeRange[0],
 					gameOptions.platformSizeRange[1]
 				);
@@ -120,7 +121,7 @@ export default class GameScene extends Phaser.Scene {
 
 				this.addPlatform(nextPlatformWidth, position);
 				score = updateScore(score);
-				scoreText.setText('Score:' + score);
+				scoreText.setText(`Score:${score}`);
 				gameOptions.platformCounter++;
 			}
 		}

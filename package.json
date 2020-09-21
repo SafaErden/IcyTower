@@ -30,13 +30,20 @@
 		"babel-loader": "^8.1.0",
 		"babel-polyfill": "^6.26.0",
 		"babel-preset-env": "^1.7.0",
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb-base": "^14.1.0",
+		"eslint-plugin-import": "^2.20.2",
 		"jest": "^26.4.2",
-		"phaser": "^3.3.0",
 		"raw-loader": "^0.5.1",
+		"stylelint": "^13.3.3",
+		"stylelint-config-standard": "^20.0.0",
+		"stylelint-csstree-validator": "^1.8.0",
+		"stylelint-scss": "^3.17.2",
 		"webpack": "^3.4.1",
 		"webpack-dev-server": "^2.11.0"
 	},
 	"dependencies": {
+		"phaser": "^3.3.0",
 		"node-fetch": "^2.6.1",
 		"phaser3-rex-plugins": "^1.1.28"
 	}
