@@ -101,6 +101,7 @@ export default class ScoreScene extends Phaser.Scene {
 		updatePanel(scoreBoard, 'Loading...');
 
 		let result = await getScore();
+		result = result.sort((a, b) => +b.score - +a.score);
 		const answer = {};
 		result.forEach((element) => {
 			if (!answer[element.user]) {

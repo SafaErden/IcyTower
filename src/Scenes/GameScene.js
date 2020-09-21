@@ -84,7 +84,20 @@ export default class GameScene extends Phaser.Scene {
 		if (this.player.y > config.height) {
 			gameOptions.platformCounter = 0;
 			score = 0;
-			saveScore(score, this.model.userName);
+			let url =
+				'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+			let data = {
+				user: this.model.userName,
+				score: score
+			};
+			fetch(url, {
+				mode: 'cors',
+				method: 'POST',
+				body: JSON.stringify(data),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
 			this.create();
 			this.scene.start('ScoreBoard');
 		}
@@ -114,17 +127,13 @@ export default class GameScene extends Phaser.Scene {
 		if (cursors.left.isDown) {
 			this.player.setVelocityX(-160);
 			this.player.anims.play('left', true);
-			//this.player.angle -= 20;
 		} else if (cursors.right.isDown) {
 			this.player.setVelocityX(160);
 			this.player.anims.play('right', true);
-			//this.player.angle += 20;
 		} else {
 			this.player.setVelocityX(0);
-
 			this.player.anims.play('turn');
 		}
-
 		if (cursors.up.isDown && this.player.body.touching.down) {
 			this.sys.game.globals.jumper.play();
 			this.player.setVelocityY(-330);

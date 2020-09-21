@@ -39,6 +39,12 @@ describe('Testing the fetching scores', () => {
 		});
 	});
 
+	test('returns empty array if there is no score', async () => {
+		getScore.mockResolvedValue({ result: [] });
+		const result = await getScore();
+		expect(result).toEqual({ result: [] });
+	});
+
 	test('it returns an object of previous results.', async () => {
 		let result = await getScore();
 		expect(typeof result).toBe('object');
