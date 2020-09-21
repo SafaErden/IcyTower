@@ -85,7 +85,10 @@ export default class GameScene extends Phaser.Scene {
     if (this.player.y > config.height) {
       gameOptions.platformCounter = 0;
       score = 0;
-      const url =				'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+      /* eslint-disable */
+			const url =
+				'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
+			/* eslint-enable */
       const data = {
         user: this.model.userName,
         score,
@@ -112,7 +115,7 @@ export default class GameScene extends Phaser.Scene {
         );
         let position;
 
-        if (gameOptions.platformCounter % 2 == 0) {
+        if (gameOptions.platformCounter % 2 === 0) {
           position = Phaser.Math.Between(0, canvasWidth / 2);
         } else {
           position = Phaser.Math.Between(canvasWidth / 2, canvasWidth);
@@ -121,7 +124,7 @@ export default class GameScene extends Phaser.Scene {
         this.addPlatform(nextPlatformWidth, position);
         score = updateScore(score);
         scoreText.setText(`Score:${score}`);
-        gameOptions.platformCounter++;
+        gameOptions.platformCounter += 1;
       }
     }
     if (cursors.left.isDown) {

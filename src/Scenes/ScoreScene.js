@@ -115,7 +115,7 @@ export default class ScoreScene extends Phaser.Scene {
 
     const filteredResult = {};
 
-    for (let index = 0; index < 10; index++) {
+    for (let index = 0; index < 10; index += 1) {
       const key = Object.keys(answer)[index];
       filteredResult[key] = answer[key];
     }
