@@ -80,8 +80,12 @@ export default class GameScene extends Phaser.Scene {
 		this.model = this.sys.game.globals.model;
 
 		if (this.player.y > config.height) {
+			gameOptions.platformCounter = 0;
+			score = 0;
 			saveScore(score, this.model.userName);
+			this.create();
 			this.scene.start('ScoreBoard');
+			
 		}
 
 		let platform = this.platformGroup.getChildren();
