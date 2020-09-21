@@ -134,7 +134,7 @@ export default class TitleScene extends Phaser.Scene {
 			x: config.width / 2,
 			y: 200,
 			title: 'Please enter your username',
-			username: ''
+			username: model.userName
 		}).on('login', function played(username) {
 			if (username.length > 0) {
 				model.userName = username;
