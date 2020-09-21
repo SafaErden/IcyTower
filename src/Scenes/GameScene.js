@@ -1,5 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
+import { updateScore, saveScore } from '../modules/score';
 
 var cursors;
 var score = 0;
@@ -105,7 +106,8 @@ export default class GameScene extends Phaser.Scene {
 				}
 
 				this.addPlatform(nextPlatformWidth, position);
-				updateScore();
+				score = updateScore(score);
+				scoreText.setText('Score:' + score);
 				gameOptions.platformCounter++;
 			}
 		}
@@ -128,25 +130,4 @@ export default class GameScene extends Phaser.Scene {
 			this.player.setVelocityY(-330);
 		}
 	}
-}
-
-function updateScore() {
-	score += 10;
-	scoreText.setText('Score:' + score);
-}
-
-function saveScore(score, user) {
-	const url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores/';
-	let data = {
-		user: user,
-		score: score
-	};
-	fetch(url, {
-		mode: 'cors',
-		method: 'POST',
-		body: JSON.stringify(data),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
 }
