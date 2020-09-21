@@ -19,7 +19,7 @@ export default class GameScene extends Phaser.Scene {
 	preload() {
 		this.add.image(config.width / 2, config.height / 2, 'background');
 		this.load.image('platform', '../src/assets/platform.png');
-		this.load.spritesheet('dude', '../src/assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+		this.load.spritesheet('dude', '../src/assets/dude.png', { frameWidth: 32, frameHeight: 64 });
 		this.sys.game.globals.bgMusic.stop();
 		this.jumper = this.sound.add('jumper', { volume: 1, loop: false });
 		this.sys.game.globals.jumper = this.jumper;
@@ -42,9 +42,10 @@ export default class GameScene extends Phaser.Scene {
 
 		this.player = this.physics.add.sprite(100, -100, 'dude');
 		this.player.body.setGravityY(400);
+		this.player.setBounce(0.2);
 		this.anims.create({
 			key: 'left',
-			frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+			frames: this.anims.generateFrameNumbers('dude', { start: 8, end: 11 }),
 			frameRate: 10,
 			repeat: -1
 		});
@@ -57,7 +58,7 @@ export default class GameScene extends Phaser.Scene {
 
 		this.anims.create({
 			key: 'right',
-			frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+			frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
 			frameRate: 10,
 			repeat: -1
 		});
@@ -85,7 +86,6 @@ export default class GameScene extends Phaser.Scene {
 			saveScore(score, this.model.userName);
 			this.create();
 			this.scene.start('ScoreBoard');
-			
 		}
 
 		let platform = this.platformGroup.getChildren();
@@ -111,12 +111,12 @@ export default class GameScene extends Phaser.Scene {
 		}
 		if (cursors.left.isDown) {
 			this.player.setVelocityX(-160);
-
 			this.player.anims.play('left', true);
+			//this.player.angle -= 20;
 		} else if (cursors.right.isDown) {
 			this.player.setVelocityX(160);
-
 			this.player.anims.play('right', true);
+			//this.player.angle += 20;
 		} else {
 			this.player.setVelocityX(0);
 
