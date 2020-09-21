@@ -144,13 +144,15 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   centerButton(gameObject, offset = 0) {
+    const cW = config.width;
     Phaser.Display.Align.In.Center(
       gameObject,
-      this.add.zone(config.width / 2, config.height / 2 - offset * 100, config.width, config.height),
+      this.add.zone(cW / 2, config.height / 2 - offset * 100, cW, config.height),
     );
   }
-
-  centerButtonText(gameText, gameButton) {
-    Phaser.Display.Align.In.Center(gameText, gameButton);
-  }
+  /* eslint-disable */
+	centerButtonText(gameText, gameButton) {
+		Phaser.Display.Align.In.Center(gameText, gameButton);
+	}
+	/* eslint-enable */
 }

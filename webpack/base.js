@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); //eslint-disable-line
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); //eslint-disable-line
 
 module.exports = {
   mode: 'development',

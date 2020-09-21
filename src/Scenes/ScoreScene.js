@@ -119,22 +119,24 @@ export default class ScoreScene extends Phaser.Scene {
       const key = Object.keys(answer)[index];
       filteredResult[key] = answer[key];
     }
-
-    for (const el in filteredResult) {
-      output += `${el} - ${filteredResult[el]} \n`;
-    }
-
+    /* eslint-disable */
+		for (const el in filteredResult) {
+			output += `${el} - ${filteredResult[el]} \n`;
+		}
+		/* eslint-enable */
     updatePanel(scoreBoard, output);
   }
 
   centerButton(gameObject, offset = 0) {
+    const cW = config.width;
     Phaser.Display.Align.In.Center(
       gameObject,
-      this.add.zone(config.width / 2, config.height / 2 - offset * 100, config.width, config.height),
+      this.add.zone(cW / 2, config.height / 2 - offset * 100, cW, config.height),
     );
   }
-
-  centerButtonText(gameText, gameButton) {
-    Phaser.Display.Align.In.Center(gameText, gameButton);
-  }
+  /* eslint-disable */
+	centerButtonText(gameText, gameButton) {
+		Phaser.Display.Align.In.Center(gameText, gameButton);
+	}
+	/* eslint-enable */
 }
