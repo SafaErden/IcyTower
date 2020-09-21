@@ -18,3 +18,17 @@ export function saveScore(score, user) {
 		}
 	});
 }
+
+export async function getScore() {
+	const fetch = require('node-fetch');
+	let url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores/';
+	let result = await fetch(url, {
+		mode: 'cors'
+	});
+
+	const data = await result.json();
+	result = data.result;
+	result = result.sort((a, b) => +b.score - +a.score);
+
+	return result;
+}

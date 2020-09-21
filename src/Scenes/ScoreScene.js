@@ -1,5 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
+import { getScore } from '../modules/score';
 import Button from '../Objects/Button';
 
 const updatePanel = (panel, content) => {
@@ -99,28 +100,7 @@ export default class ScoreScene extends Phaser.Scene {
 			.layout();
 		updatePanel(scoreBoard, 'Loading...');
 
-		this.url = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores/';
-		this.data = {
-			user: localStorage.getItem('name'),
-			score: localStorage.getItem('score')
-		};
-		await fetch(this.url, {
-			mode: 'cors',
-			method: 'POST',
-			body: JSON.stringify(this.data),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-
-		updatePanel(scoreBoard, 'Loading...');
-		let result = await fetch(this.url, {
-			mode: 'cors'
-		});
-		updatePanel(scoreBoard, 'Loading...');
-		const data = await result.json();
-		result = data.result;
-		result = result.sort((a, b) => +b.score - +a.score);
+		let result = await getScore();
 		const answer = {};
 		result.forEach((element) => {
 			if (!answer[element.user]) {
