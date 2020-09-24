@@ -23,7 +23,7 @@
 
 [Live Demo Link](https://icytower.netlify.app/)
 
-### Setup
+## Setup
 
 -To use this app locally, 
 
@@ -49,7 +49,37 @@ npm run start
 ```
 to play the game locally.
 
-### Usage
+## Game Design
+
+### Fugitive 
+<p>
+  <img   src="./src/assets/singledude.png">
+</p>
+
+-Role: Escaping from the tower
+
+-Actions: Moving left, moving rigt, and jumping to climb the stairs.
+
+### Stair
+<p>
+  <img   src="./src/assets/stair.JPG">
+</p>
+
+-Role: Moving down to prevent the fugitive to escape.
+
+-Actions: Moving faster as long as the fugitive reveals new stairs.
+
+### ScoreBoard
+<p>
+  <img   src="./src/assets/score.JPG">
+</p>
+
+-Role: Showing the current gianed score depending on the number of revelaed stairs.
+
+
+
+
+## Usage
 
 -If you click on the Score Board button, you can view the highest 10 scores. To go back, you can click on the Menu button,
 
