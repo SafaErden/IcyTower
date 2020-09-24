@@ -83,15 +83,13 @@ export default class GameScene extends Phaser.Scene {
 		this.model = this.sys.game.globals.model;
 
 		if (this.player.y > config.height) {
-			gameOptions.platformCounter = 0;
-			score = 0;
 			/* eslint-disable */
-			const url =
+			let url =
 				'https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/gv40Y9XXDktliqpcA0vA/scores';
 			/* eslint-enable */
-			const data = {
+			let data = {
 				user: this.model.userName,
-				score
+				score: score
 			};
 			fetch(url, {
 				mode: 'cors',
@@ -101,6 +99,8 @@ export default class GameScene extends Phaser.Scene {
 					'Content-Type': 'application/json'
 				}
 			});
+			gameOptions.platformCounter = 0;
+			score = 0;
 			this.create();
 			this.scene.start('ScoreBoard');
 		}
